@@ -1,0 +1,9 @@
+aws_region          = "ap-south-1"
+project_name        = "zomato"
+project_environment = "production"
+ec2_ami_id          = "ami-0e53db6fd757e38c7"
+ec2_type            = "t2.micro"
+default_vpc_id      = "vpc-0a7db378d92ac7bf4"
+frontend_ports      = ["80", "443", "22"]
+domain_name         = "sidtechhub.online"
+hostname            = "terraform"
