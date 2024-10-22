@@ -66,4 +66,13 @@ resource "aws_eip" "frontend_eip" {
   domain   = "vpc"
 }
 
+resource "aws_route53_record" "frontend" {
+    
+  zone_id = data.aws_route53_zone.my_domain.id
+  name    = "${var.hostname}.${var.domain_name}"
+  type    = "A"
+  ttl     = 300
+  records = [ aws_eip.frontend_eip.public_ip ]
+
+}
 
