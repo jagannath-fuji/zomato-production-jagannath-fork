@@ -26,3 +26,18 @@ resource "aws_security_group" "frontend" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+# Creating Frontend  Security group ingress rules
+resource "aws_security_group_rule" "frontend_ingress_rule" {
+
+  for_each = toset(var.frontend_ports)
+
+  type              = "ingress"
+  from_port         = each.key
+  to_port           = each.key
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.frontend.id
+}
+
