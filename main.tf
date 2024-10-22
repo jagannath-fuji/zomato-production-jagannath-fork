@@ -41,3 +41,23 @@ resource "aws_security_group_rule" "frontend_ingress_rule" {
   security_group_id = aws_security_group.frontend.id
 }
 
+
+# creating Ec2 instance
+resource "aws_instance" "frontend" {
+
+  ami                    = var.ec2_ami_id
+  instance_type          = var.ec2_type
+  key_name               = aws_key_pair.ssh_keypair.key_name
+  monitoring             = false
+  user_data              = file("setup.sh")
+  vpc_security_group_ids = [aws_security_group.frontend.id]
+  tags = {
+    Name = "${var.project_name}-${var.project_environment}-frontend"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+  
+}
+
